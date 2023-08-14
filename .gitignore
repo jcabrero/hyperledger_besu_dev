@@ -1,4 +1,8 @@
-qbft/node*/database/
+
+qbft/node*/database/*
+!qbft/node*/database/key
+!qbft/node*/database/key.pub
+
 
 # Compiler files
 smart_contracts/cache/
