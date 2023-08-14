@@ -68,3 +68,7 @@ To produce the configuration files necessary for *QBFT*, we use the following co
 ```
 `docker compose -f setup/qbft-setup.yml up`
 ```
+
+## Resources and References
+[Building and testing smart contracts with Foundry - Nader Dabit](https://nader.mirror.xyz/6Mn3HjrqKLhHzu2balLPv4SqE5a-oEESl4ycpRkWFsc)
+[How to develop and deploy smart contracts with Foundry & Openzeppelin - pateldeep.eth](https://medium.com/coinmonks/how-to-develop-and-deploy-smart-contracts-with-foundry-openzeppelin-6bba51ddb438)
