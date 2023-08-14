@@ -1,0 +1,28 @@
+## Valid TOML config file
+# data-path="~/besudata" # Path
+
+## Network
+bootnodes=["enode://d4b01f95b1964520982cda7dee1e7e9f8d9253981c58ad85954fc641b28b62c333a75aa00331c10d2e210583f120f1cd3abe31b9cb81e78b67891a1f7bcca04d@10.5.0.2:30303"]
+
+p2p-host=["10.5.0.4"] 
+p2p-enabled=true
+p2p-port=30305
+max-peers=25
+
+rpc-http-host=["10.5.0.4"] 
+rpc-http-port=8547
+rpc-http-enabled=true 
+rpc-http-api=["ETH","NET","QBFT"] 
+
+#allow all
+host-allowlist=["*"] 
+rpc-http-cors-origins=["*"]
+#rpc-ws-host="9.10.11.12"
+#rpc-ws-port=9101
+
+# Chain
+#genesis-file="~/genesis.json" # Path to the custom genesis file
+
+# Mining
+#miner-enabled=true
+#miner-coinbase="0xfe3b557e8fb62b89f4916b721be55ceb828dbd73"

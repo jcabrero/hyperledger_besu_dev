@@ -1,0 +1,17 @@
+qbft/node*/database/
+
+# Compiler files
+smart_contracts/cache/
+smart_contracts/out/
+smart_contracts/lib/*
+
+# Ignores development broadcast logs
+!/broadcast
+/broadcast/*/31337/
+/broadcast/**/dry-run/
+
+# Docs
+smart_contracts/docs/
+
+# Dotenv file
+smart_contracts/.env

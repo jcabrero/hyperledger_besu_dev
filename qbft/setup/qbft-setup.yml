@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+  besu_setup:
+    image: hyperledger/besu:latest
+
+    environment:
+      - BESU_COLOR_ENABLED=true
+    
+    volumes:
+      - ./config:/besu_config/global/
+    
+    command: [
+      "operator",
+      "generate-blockchain-config",
+      "--config-file=/besu_config/global/qbftConfigFile.json",
+      "--to=/besu_config/global/qbftConfig",
+      "--private-key-file-name=key"
+    ]
+
+  

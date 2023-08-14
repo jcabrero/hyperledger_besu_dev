@@ -1,0 +1,148 @@
+version: '3.4'
+services:
+  node1:
+    image: hyperledger/besu:latest
+    environment:
+      - BESU_COLOR_ENABLED=true
+
+      #- BESU_RPC_HTTP_ENABLED=true
+      #- BESU_RPC_HTTP_PORT=8545
+
+      #- BESU_HOST_ALLOWLIST=*
+      #- BESU_ENGINE_HOST_ALLOWLIST=*
+      #- BESU_RPC_HTTP_CORS_ORIGINS=*
+      - BESU_GENESIS_FILE=/besu_config/global/genesis.json
+      #- BESU_RPC_HTTP_API=ETH,NET,QBFT
+      - BESU_DATA_PATH=/data
+      #- BESU_GRAPHQL_HTTP_PORT=6175 # to listen on port 6175
+      #- BESU_RPC_WS_PORT=6174
+    volumes:
+      - ./node1/config/:/opt/besu/conf/
+      - ./node1/data/:/opt/besu/data/
+      - ./node1/database/:/data
+      - ./node1/config.toml:/besu_config/config.toml
+      - ./config:/besu_config/global/
+
+    command: [
+      # "--rpc-http-enabled",
+      # "--data-path=/data",
+      #"--rpc-ws-enabled",
+      #"--graphql-http-enabled",
+
+      ##  Config File Path
+      "--config-file=/besu_config/config.toml",
+
+      ## To enable mining on a test net
+      #"--miner-enabled",
+      #"--miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73",
+
+      ## Lower storage requirements (comment if not needed)
+      "--data-storage-format=BONSAI",
+
+      ## Test flags
+      #"--rpc-http-cors-origins='all'",
+      #"--host-allowlist='[*]'"
+
+    ]
+    ports:
+      - 8545:8545 # JSON-RPC HTTP 
+      # - 6175:6175 # GraphQL
+      # - 6174:6174 # RPC-Websockets
+      # - 8546:8546 # WebSockets
+      - 30303:30303 # P2P port
+    networks:
+      network:
+        ipv4_address: 10.5.0.2
+
+  node2:
+    image: hyperledger/besu:latest
+    depends_on:
+      - node1
+    environment:
+      - BESU_COLOR_ENABLED=true
+      - BESU_GENESIS_FILE=/besu_config/global/genesis.json
+      - BESU_DATA_PATH=/data
+    volumes:
+      - ./node2/config/:/opt/besu/conf/
+      - ./node2/data/:/opt/besu/data/
+      - ./node2/database/:/data
+      - ./node2/config.toml:/besu_config/config.toml
+      - ./config:/besu_config/global/
+
+    command: [
+      ##  Config File Path
+      "--config-file=/besu_config/config.toml",
+      "--data-storage-format=BONSAI"
+    ]
+    ports:
+      - 8546:8546 # JSON-RPC HTTP 
+      - 30304:30304 # P2P port
+    networks:
+      network:
+        ipv4_address: 10.5.0.3
+
+
+  node3:
+    image: hyperledger/besu:latest
+    depends_on:
+      - node1
+    environment:
+      - BESU_COLOR_ENABLED=true
+
+      - BESU_GENESIS_FILE=/besu_config/global/genesis.json
+      - BESU_DATA_PATH=/data
+    volumes:
+      - ./node3/config/:/opt/besu/conf/
+      - ./node3/data/:/opt/besu/data/
+      - ./node3/database/:/data
+      - ./node3/config.toml:/besu_config/config.toml
+      - ./config:/besu_config/global/
+
+    command: [
+      ##  Config File Path
+      "--config-file=/besu_config/config.toml",
+      ## Lower storage requirements (comment if not needed)
+      "--data-storage-format=BONSAI"
+    ]
+    ports:
+      - 8547:8547 # JSON-RPC HTTP 
+      - 30305:30305 # P2P port
+    networks:
+      network:
+        ipv4_address: 10.5.0.4
+
+  node4:
+    image: hyperledger/besu:latest
+    depends_on:
+      - node1
+    environment:
+      - BESU_COLOR_ENABLED=true
+      - BESU_GENESIS_FILE=/besu_config/global/genesis.json
+      - BESU_DATA_PATH=/data
+    volumes:
+      - ./node4/config/:/opt/besu/conf/
+      - ./node4/data/:/opt/besu/data/
+      - ./node4/database/:/data
+      - ./node4/config.toml:/besu_config/config.toml
+      - ./config:/besu_config/global/
+
+    command: [
+      ##  Config File Path
+      "--config-file=/besu_config/config.toml",
+      ## Lower storage requirements (comment if not needed)
+      "--data-storage-format=BONSAI",
+    ]
+    ports:
+      - 8548:8548 # JSON-RPC HTTP 
+      - 30306:30306 # P2P port
+    networks:
+      network:
+        ipv4_address: 10.5.0.5
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
